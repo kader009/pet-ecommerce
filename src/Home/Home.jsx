@@ -1,8 +1,11 @@
+import FeaturedPets from "../pages/FeaturePets";
+import HeroSection from "../pages/HeroSection";
 
 const Home = () => {
   return (
     <div>
-      <h1>home</h1>
+      <HeroSection/>
+      <FeaturedPets/>
     </div>
   );
 };
