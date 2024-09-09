@@ -67,7 +67,7 @@ const Navbar = () => {
 
       {/* Navbar end for buttons */}
       <div className="navbar-end">
-        <Link to="/login" className="bg-blue-700 py-2 px-4 rounded text-white ">
+        <Link to="/login" className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg hover:bg-gradient-to-l transition-all duration-300 shadow-md py-2 px-4 text-white ">
           SignIn
         </Link>
       </div>
