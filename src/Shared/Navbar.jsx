@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-200">
+    <div className="navbar bg-white sticky top-0 z-10">
       <div className="navbar-start">
         <div className="dropdown">
           {/* Mobile menu button */}
@@ -67,7 +67,10 @@ const Navbar = () => {
 
       {/* Navbar end for buttons */}
       <div className="navbar-end">
-        <Link to="/login" className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg hover:bg-gradient-to-l transition-all duration-300 shadow-md py-2 px-4 text-white ">
+        <Link
+          to="/login"
+          className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg hover:bg-gradient-to-l transition-all duration-300 shadow-md py-2 px-4 text-white "
+        >
           SignIn
         </Link>
       </div>
