@@ -51,7 +51,7 @@ const FeaturedPets = () => {
                 <h3 className="text-xl font-semibold text-gray-800">
                   {pet.name}
                 </h3>
-                <p className="text-gray-500 mt-2 text-lg">{pet.price}</p>
+                <p className="text-[#f04336] mt-2 text-lg font-bold">{pet.price}</p>
                 <button className="mt-6 w-full px-4 py-2 text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg hover:bg-gradient-to-l transition-all duration-300 shadow-md">
                   View Details
                 </button>
