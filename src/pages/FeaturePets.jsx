@@ -1,13 +1,17 @@
 import { useState } from 'react';
+import Loader from '../components/Loader';
 
 const FeaturedPets = () => {
   const [featuredPets, SetfeaturedPets] = useState([]);
+  const [loading, Setloading] = useState(true);
   fetch(`http://localhost:5000/petlist`)
     .then((res) => res.json())
     .then((data) => {
       SetfeaturedPets(data);
+      Setloading(false)
     })
     .catch((error) => {
+      Setloading(false)
       console.log(error);
     });
 
@@ -17,7 +21,8 @@ const FeaturedPets = () => {
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           Featured Pets
         </h2>
-        <div className="flex justify-center items-center flex-wrap gap-4">
+
+        {loading ? <Loader/> :<div className="flex justify-center items-center flex-wrap gap-4">
           {featuredPets.slice(0, 6).map((pet) => (
             <div
               key={pet._id}
@@ -42,7 +47,7 @@ const FeaturedPets = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
       </div>
     </section>
   );
