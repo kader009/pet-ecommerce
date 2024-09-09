@@ -1,11 +1,31 @@
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hook/useAuth';
 
 const Register = () => {
+  const { createUser, google, github } = useAuth();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    createUser(email, password);
+    console.log(email, password);
+  };
+
+  const googleLog = () => {
+    google();
+  };
+
+  const githubLog = () => {
+    github();
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
-        <form>
+        <form onSubmit={handleRegister}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -43,7 +63,7 @@ const Register = () => {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none"
             >
               Register
             </button>
@@ -52,7 +72,10 @@ const Register = () => {
 
         <div className="flex flex-col gap-4 mt-6">
           <div className="flex gap-2">
-            <button className="flex items-center justify-center w-full bg-red-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            <button
+              onClick={googleLog}
+              className="flex items-center justify-center w-full bg-red-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-700 focus:outline-none "
+            >
               <svg
                 className="w-6 h-6 mr-2"
                 viewBox="0 0 48 48"
@@ -78,7 +101,10 @@ const Register = () => {
               Google
             </button>
 
-            <button className="flex items-center justify-center w-full bg-gray-800 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+            <button
+              onClick={githubLog}
+              className="flex items-center justify-center w-full bg-gray-800 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-900 focus:outline-none"
+            >
               <svg
                 className="w-6 h-6 mr-2"
                 fill="currentColor"

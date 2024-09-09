@@ -25,13 +25,13 @@ const Navbar = () => {
           {/* Mobile dropdown menu */}
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className=" menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
               <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="#about">About</a>
+              <a href="#about">Product listign</a>
             </li>
             <li>
               <a href="#services">Services</a>
@@ -49,12 +49,12 @@ const Navbar = () => {
 
       {/* Navbar center for larger screens */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className=" menu-horizontal px-1 gap-3">
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="#about">Product listign</a>
           </li>
           <li>
             <a href="#services">Services</a>
