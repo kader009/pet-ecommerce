@@ -14,7 +14,7 @@ const HeroSection = () => {
           <p className="mb-5">
             At Fable, we believe every pet deserves a loving home. Explore our wide range of pets ready to become part of your family.
           </p>
-          <button className="bg-blue-700 px-2 py-3 rounded">Find Your Pet</button>
+          <button className="bg-blue-700 px-2 py-3 rounded">Shop Now</button>
         </div>
       </div>
     </div>

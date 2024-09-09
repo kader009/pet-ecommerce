@@ -42,9 +42,9 @@ const Navbar = () => {
           </ul>
         </div>
         {/* Website logo */}
-        <a className="text-xl font-bold" href="/">
+        <Link className="text-xl font-bold" to="/">
           Fable
-        </a>
+        </Link>
       </div>
 
       {/* Navbar center for larger screens */}

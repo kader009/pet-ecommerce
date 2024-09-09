@@ -6,8 +6,8 @@ const Home = () => {
   return (
     <div>
       <HeroSection/>
-      <FeaturedPets/>
       <StoreInfo/>
+      <FeaturedPets/>
     </div>
   );
 };
