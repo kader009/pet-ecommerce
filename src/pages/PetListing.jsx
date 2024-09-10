@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Loader from '../components/Loader';
 
 const PetListing = () => {
   const [pets, setPets] = useState([]);
@@ -9,6 +10,7 @@ const PetListing = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [priceRange, setPriceRange] = useState([0, 1200]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('http://localhost:5000/petlist')
@@ -16,6 +18,7 @@ const PetListing = () => {
       .then((data) => {
         setPets(data);
         setFeaturedPets(data);
+        setLoading(false);
         const uniqueCategories = [...new Set(data.map((pet) => pet.category))];
         setCategories(uniqueCategories);
         const uniqueRatings = [...new Set(data.map((pet) => pet.rating))];
@@ -30,27 +33,32 @@ const PetListing = () => {
     filterPets();
   }, [selectedCategory, searchTerm, priceRange, selectedRating]);
 
+  // actinable for all filter
   const filterPets = () => {
     let updatedPets = pets;
 
+    // search for name
     if (searchTerm) {
       updatedPets = updatedPets.filter((pet) =>
         pet.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
+    // search for price
     if (priceRange) {
       updatedPets = updatedPets.filter(
         (pet) => pet.price >= priceRange[0] && pet.price <= priceRange[1]
       );
     }
 
+    // search for category
     if (selectedCategory) {
       updatedPets = updatedPets.filter(
         (pet) => pet.category === selectedCategory
       );
     }
 
+    // search for rating
     if (selectedRating) {
       updatedPets = updatedPets.filter((pet) => pet.rating >= selectedRating);
     }
@@ -58,27 +66,30 @@ const PetListing = () => {
     setFeaturedPets(updatedPets);
   };
 
+  // category change
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
 
+  // search by text
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  // price range filter
   const handlePriceRangeChange = (e) => {
     setPriceRange([0, Number(e.target.value)]);
   };
 
+  // rating change for filter
   const handleRatingChange = (e) => {
     setSelectedRating(Number(e.target.value));
   };
 
   return (
     <div className="flex flex-col lg:flex-row">
-      {/* Filter Panel */}
       <aside className="w-full lg:w-1/4 bg-white shadow-md p-6 lg:sticky lg:top-0 lg:h-screen">
-        <h2 className="text-2xl font-bold mb-4">Filters</h2>
+        <h2 className="text-2xl font-extrabold mb-4">Filters</h2>
 
         {/* Search Input */}
         <div className="mb-6">
@@ -86,7 +97,7 @@ const PetListing = () => {
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
-            placeholder="Search products..."
+            placeholder="Search pets by name..."
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -143,45 +154,53 @@ const PetListing = () => {
         </div>
       </aside>
 
-      {/* Product Grid */}
-      <main className="w-full lg:w-3/4 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {featuredPets.length > 0 ? (
-          featuredPets.map((product) => (
-            <div
-              key={product._id}
-              className="bg-white shadow-lg rounded-lg p-4 transition-all transform hover:scale-105"
-            >
-              <img
-                src={product.images}
-                alt={product.name}
-                className="w-full h-56 object-cover rounded-md"
-              />
-              <div className="mt-4">
-                <h3 className="text-lg font-bold text-gray-800">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-gray-600 mt-2">{product.category}</p>
-                <p className="text-[#f04336] mt-2 text-lg font-bold">
-                  $ {product.price}
-                </p>
-                <div className="flex items-center mt-2">
-                  <span className="text-yellow-500 text-sm">
-                    {'★'.repeat(product.rating)}
-                  </span>
-                  <span className="text-sm text-gray-500 ml-2">
-                    ({product.rating} Stars)
-                  </span>
+      {loading ? (
+        <div className='flex justify-center items-center'>
+
+          <Loader />
+        </div>
+      ) : (
+        <main className="w-full lg:w-3/4 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredPets.length > 0 ? (
+            featuredPets.map((product) => (
+              <div
+                key={product._id}
+                className="bg-white shadow-lg rounded-lg p-4 transition-all transform hover:scale-105"
+              >
+                <img
+                  src={product.images}
+                  alt={product.name}
+                  className="w-full h-56 object-cover rounded-md"
+                />
+                <div className="mt-4">
+                  <h3 className="text-lg font-bold text-gray-800">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {product.category}
+                  </p>
+                  <p className="text-[#f04336] mt-2 text-lg font-bold">
+                    $ {product.price}
+                  </p>
+                  <div className="flex items-center mt-2">
+                    <span className="text-yellow-500 text-sm">
+                      {'★'.repeat(product.rating)}
+                    </span>
+                    <span className="text-sm text-gray-500 ml-2">
+                      ({product.rating} Stars)
+                    </span>
+                  </div>
+                  <button className="mt-4 w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-md hover:bg-indigo-600 transition-all">
+                    View Details
+                  </button>
                 </div>
-                <button className="mt-4 w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-md hover:bg-indigo-600 transition-all">
-                  View Details
-                </button>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center">No pets found matching your filters.</p>
-        )}
-      </main>
+            ))
+          ) : (
+            <p className="text-center">No pets found matching your filters.</p>
+          )}
+        </main>
+      )}
     </div>
   );
 };
