@@ -5,11 +5,13 @@ import Login from '../pages/Account/Login';
 import Register from '../pages/Account/Register';
 import PetListing from '../pages/PetListing';
 import PetDetails from '../pages/PetDetails';
+import ErrorPage from '../components/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -22,7 +24,8 @@ const router = createBrowserRouter([
       {
         path: '/petDetail/:id',
         element: <PetDetails />,
-        loader: ({params}) => fetch(`http://localhost:5000/petlist/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/petlist/${params.id}`),
       },
       {
         path: '/login',
