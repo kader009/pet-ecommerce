@@ -4,6 +4,7 @@ import Home from '../Home/Home';
 import Login from '../pages/Account/Login';
 import Register from '../pages/Account/Register';
 import PetListing from '../pages/PetListing';
+import PetDetails from '../pages/PetDetails';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
       {
         path: '/pet-listing',
         element: <PetListing />,
+      },
+      {
+        path: '/petDetail/:id',
+        element: <PetDetails />,
+        loader: ({params}) => fetch(`http://localhost:5000/petlist/${params.id}`)
       },
       {
         path: '/login',

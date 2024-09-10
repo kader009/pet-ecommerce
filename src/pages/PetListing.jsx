@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
+import { Link } from 'react-router-dom';
 
 const PetListing = () => {
   const [pets, setPets] = useState([]);
@@ -155,8 +156,7 @@ const PetListing = () => {
       </aside>
 
       {loading ? (
-        <div className='flex justify-center items-center'>
-
+        <div className="flex justify-center items-center">
           <Loader />
         </div>
       ) : (
@@ -191,7 +191,10 @@ const PetListing = () => {
                     </span>
                   </div>
                   <button className="mt-4 w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-md hover:bg-indigo-600 transition-all">
+                    <Link to={`/petDetail/${product._id}`}>
+                    
                     View Details
+                    </Link>
                   </button>
                 </div>
               </div>
