@@ -42,7 +42,7 @@ const Navbar = () => {
           </ul>
         </div>
         {/* Website logo */}
-        <Link className="text-xl font-bold" to="/">
+        <Link className="text-xl font-extrabold" to="/">
           Fable
         </Link>
       </div>

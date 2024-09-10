@@ -4,7 +4,7 @@ const StoreInfo = () => {
   return (
     <section className="py-16 bg-gradient-to-r from-purple-50 to-indigo-50">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">About Fable</h2>
+        <h2 className="text-4xl font-extrabold text-gray-800 mb-4">About Fable</h2>
         <div className="w-16 h-1 bg-indigo-600 mx-auto mb-6"></div>
         <p className="mt-4 text-xl text-gray-700 max-w-3xl mx-auto">
           At Fable, we connect you with the perfect pet, offering a variety of
