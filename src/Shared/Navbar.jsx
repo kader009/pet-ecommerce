@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import useAuth from '../Hook/useAuth';
 
 const Navbar = () => {
+  const {user} = useAuth()
+  console.log(user?.uid);
   return (
     <div className="navbar bg-white sticky top-0 z-10">
       <div className="navbar-start">
@@ -34,7 +37,7 @@ const Navbar = () => {
               <Link to="/pet-listing">Pet listing</Link>
             </li>
             <li>
-              <a href="#services">Services</a>
+              <Link to="/cart">Carts</Link>
             </li>
             <li>
               <a href="#contact">Contact</a>
@@ -57,7 +60,7 @@ const Navbar = () => {
             <Link to="/pet-listing">Pet listing</Link>
           </li>
           <li>
-            <a href="#services">Services</a>
+            <Link to="/cart">Carts</Link>
           </li>
           <li>
             <a href="#contact">Contact</a>
