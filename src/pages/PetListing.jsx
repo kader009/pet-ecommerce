@@ -1,43 +1,77 @@
 import { useEffect, useState } from 'react';
 
 const PetListing = () => {
-  const [pet, Setpet] = useState([]);
-  const [featuredPets, SetfeaturedPets] = useState([]);
+  const [pets, setPets] = useState([]);
+  const [featuredPets, setFeaturedPets] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectcategories, setSelectCategories] = useState('');
+  const [ratings, setRatings] = useState([]);
+  const [selectedRating, setSelectedRating] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [priceRange, setPriceRange] = useState([0, 1200]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/petlist`)
+    fetch('http://localhost:5000/petlist')
       .then((res) => res.json())
       .then((data) => {
-        Setpet(data);
-        SetfeaturedPets(data);
-        const uniCategory = [...new Set(data.map((pet) => pet.category))];
-        setCategories(uniCategory);
+        setPets(data);
+        setFeaturedPets(data);
+        const uniqueCategories = [...new Set(data.map((pet) => pet.category))];
+        setCategories(uniqueCategories);
+        const uniqueRatings = [...new Set(data.map((pet) => pet.rating))];
+        setRatings(uniqueRatings);
       })
       .catch((error) => {
-        console.log(error);
+        console.error('Error fetching data:', error);
       });
   }, []);
 
   useEffect(() => {
-    FilterPet();
-  }, [selectcategories]);
+    filterPets();
+  }, [selectedCategory, searchTerm, priceRange, selectedRating]);
 
-  const FilterPet = () => {
-    let updatedPet = pet;
+  const filterPets = () => {
+    let updatedPets = pets;
 
-    if (selectcategories) {
-      updatedPet = updatedPet.filter(
-        (pet) => pet.category === selectcategories
+    if (searchTerm) {
+      updatedPets = updatedPets.filter((pet) =>
+        pet.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    SetfeaturedPets(updatedPet)
+    if (priceRange) {
+      updatedPets = updatedPets.filter(
+        (pet) => pet.price >= priceRange[0] && pet.price <= priceRange[1]
+      );
+    }
+
+    if (selectedCategory) {
+      updatedPets = updatedPets.filter(
+        (pet) => pet.category === selectedCategory
+      );
+    }
+
+    if (selectedRating) {
+      updatedPets = updatedPets.filter((pet) => pet.rating >= selectedRating);
+    }
+
+    setFeaturedPets(updatedPets);
   };
 
-  const handleSelect = (e) => {
-    setSelectCategories(e.target.value);
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handlePriceRangeChange = (e) => {
+    setPriceRange([0, Number(e.target.value)]);
+  };
+
+  const handleRatingChange = (e) => {
+    setSelectedRating(Number(e.target.value));
   };
 
   return (
@@ -50,8 +84,8 @@ const PetListing = () => {
         <div className="mb-6">
           <input
             type="text"
-            // value={searchTerm}
-            // onChange={handleSearchChange}
+            value={searchTerm}
+            onChange={handleSearchChange}
             placeholder="Search products..."
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
@@ -61,8 +95,8 @@ const PetListing = () => {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Category</h3>
           <select
-            value={selectcategories}
-            onChange={handleSelect}
+            value={selectedCategory}
+            onChange={handleCategoryChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="">All Categories</option>
@@ -80,14 +114,14 @@ const PetListing = () => {
           <input
             type="range"
             min="0"
-            max="1000"
+            max="1200"
             step="50"
-            // value={priceRange}
-            // onChange={handlePriceRangeChange}
+            value={priceRange[1]}
+            onChange={handlePriceRangeChange}
             className="w-full"
           />
           <p className="text-sm mt-2">
-            {/* ${priceRange[0]} - ${priceRange[1]} */}
+            ${priceRange[0]} - ${priceRange[1]}
           </p>
         </div>
 
@@ -95,25 +129,18 @@ const PetListing = () => {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Ratings</h3>
           <select
-            // value={rating}
-            // onChange={handleRatingChange}
+            value={selectedRating}
+            onChange={handleRatingChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <option value="0">All Ratings</option>
-            <option value="1">1 Star & Up</option>
-            <option value="2">2 Stars & Up</option>
-            <option value="3">3 Stars & Up</option>
-            <option value="4">4 Stars & Up</option>
-            <option value="5">5 Stars</option>
+            <option value="">All Ratings</option>
+            {ratings.map((rating) => (
+              <option key={rating} value={rating}>
+                {rating} Stars & Up
+              </option>
+            ))}
           </select>
         </div>
-
-        <button
-          className="w-full px-4 py-2 mt-4 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-700 transition-all"
-          onClick={FilterPet}
-        >
-          Apply Filters
-        </button>
       </aside>
 
       {/* Product Grid */}
@@ -152,7 +179,7 @@ const PetListing = () => {
             </div>
           ))
         ) : (
-          <p>No products found matching your filters.</p>
+          <p className="text-center">No pets found matching your filters.</p>
         )}
       </main>
     </div>
