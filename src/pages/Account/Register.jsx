@@ -9,8 +9,11 @@ const Register = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    const name = form.name.value;
+    const photo = form.photo.value;
     createUser(email, password);
-    console.log(email, password);
+    const userInfo = { name, photo, email, password };
+    console.log(userInfo);
   };
 
   const googleLog = () => {
@@ -26,6 +29,38 @@ const Register = () => {
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         <form onSubmit={handleRegister}>
+          <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
+            </label>
+            <input
+              type="Name"
+              id="name"
+              name="Name"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Photo Url
+            </label>
+            <input
+              type="photo"
+              id="photo"
+              name="photo"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter your photo url"
+              required
+            />
+          </div>
           <div className="mb-4">
             <label
               htmlFor="email"

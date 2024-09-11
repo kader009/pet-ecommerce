@@ -6,6 +6,7 @@ import Register from '../pages/Account/Register';
 import PetListing from '../pages/PetListing';
 import PetDetails from '../pages/PetDetails';
 import ErrorPage from '../components/ErrorPage';
+import Cart from '../pages/Cart';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         element: <PetDetails />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/petlist/${params.id}`),
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
       {
         path: '/login',
