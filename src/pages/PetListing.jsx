@@ -191,10 +191,7 @@ const PetListing = () => {
                     </span>
                   </div>
                   <button className="mt-4 w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-md hover:bg-indigo-600 transition-all">
-                    <Link to={`/petDetail/${product._id}`}>
-                    
-                    View Details
-                    </Link>
+                    <Link to={`/petDetail/${product._id}`}>View Details</Link>
                   </button>
                 </div>
               </div>

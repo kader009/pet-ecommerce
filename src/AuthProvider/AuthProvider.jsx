@@ -17,6 +17,23 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, SetUser] = useState(null);
   const [loading, Setloading] = useState(true);
+
+  // cart to add for local storage
+  const [cart, setCart] = useState(() => {
+    // Load initial cart from localStorage or start empty
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  // cart intregate
+  const addToCart = (product) => {
+    setCart((prevCart) => {
+      const updatedCart = [...prevCart, product];
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
 
@@ -66,6 +83,8 @@ const AuthProvider = ({ children }) => {
     github,
     loading,
     logOut,
+    cart,
+    addToCart,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

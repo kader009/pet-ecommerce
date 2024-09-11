@@ -1,8 +1,20 @@
 import { useLoaderData } from 'react-router-dom';
+import useAuth from '../Hook/useAuth';
 
 const PetDetails = () => {
   const data = useLoaderData();
   const { images, name, description, price, category, rating } = data;
+  const {user, addToCart} = useAuth()
+
+  const handleAddToCart = () => {
+    if (user) {
+      const product = { images, name, description, price, category, rating };
+      addToCart(product);
+      alert(`${name} added to cart!`);
+    } else {
+      alert('Please login to add items to the cart.');
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -31,7 +43,7 @@ const PetDetails = () => {
               ${price}
             </p>
           </div>
-          <button className="w-full lg:w-1/2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-md hover:bg-indigo-700 transition-all mt-4 lg:mt-0">
+          <button onClick={handleAddToCart} className="w-full lg:w-1/2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-md hover:bg-indigo-700 transition-all mt-4 lg:mt-0">
             Add to Cart
           </button>
         </div>
