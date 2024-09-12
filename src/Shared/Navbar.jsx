@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
 import useAuth from '../Hook/useAuth';
-import { CiShoppingCart } from "react-icons/ci";
 
 const Navbar = () => {
-  const {user} = useAuth()
-  console.log(user?.uid);
   return (
-    <div className="navbar bg-white sticky top-0 z-10"> 
+    <div className="navbar bg-white sticky top-0 z-10">
       <div className="navbar-start">
         <div className="dropdown">
           {/* Mobile menu button */}

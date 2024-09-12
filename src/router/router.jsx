@@ -7,6 +7,7 @@ import PetListing from '../pages/PetListing';
 import PetDetails from '../pages/PetDetails';
 import ErrorPage from '../components/ErrorPage';
 import Cart from '../pages/Cart';
+import SinglePetUpdate from '../pages/SinglePetUpdate';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,12 @@ const router = createBrowserRouter([
         element: <PetDetails />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/petlist/${params.id}`),
+      },
+      {
+        path:'/singleupdate/:id',
+        element: <SinglePetUpdate/>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/petlist/${params.id}`)
       },
       {
         path: '/cart',
