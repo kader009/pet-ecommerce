@@ -1,8 +1,14 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckOutForm from "./CheckOutForm";
 
+const stripePromise = loadStripe(import.meta.env.VITE_PUBLISH_KEY)
 const CheckOut = () => {
   return (
     <div>
-      <h2>check out page</h2>
+      <Elements stripe={stripePromise}>
+        <CheckOutForm/>
+      </Elements>
     </div>
   );
 };
