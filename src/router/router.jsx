@@ -8,6 +8,7 @@ import PetDetails from '../pages/PetDetails';
 import ErrorPage from '../components/ErrorPage';
 import Cart from '../pages/Cart';
 import SinglePetUpdate from '../pages/SinglePetUpdate';
+import CheckOut from '../pages/CheckOut';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />,
+      },
+      {
+        path: '/checkout',
+        element: <CheckOut />,
       },
       {
         path: '/login',

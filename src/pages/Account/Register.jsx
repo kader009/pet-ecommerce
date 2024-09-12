@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../Hook/useAuth';
 
 const Register = () => {
-  const { createUser, google, github,user } = useAuth();
+  const { createUser, google, github } = useAuth();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -11,14 +11,8 @@ const Register = () => {
     const password = form.password.value;
     const name = form.name.value;
     const photo = form.photo.value;
-    createUser(email, password).then((res) => {
-      const loggedUser = res.user;
-      console.log(loggedUser);
-
-      updateProfiles(name, photo).then(() => {
-        console.log('profilecreate');
-      });
-    });
+    
+    createUser(email, password)
     const userInfo = { name, photo, email, password };
     console.log(userInfo);
   };

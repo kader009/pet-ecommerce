@@ -26,13 +26,21 @@ const AuthProvider = ({ children }) => {
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   // cart intregate
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const updatedCart = [...prevCart, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      return updatedCart;
-    });
+    setCart((prevCart) => [...prevCart, product]);
+  };
+
+  const removeFromCart = (productName) => {
+    setCart((prevCart) => prevCart.filter(item => item.name !== productName));
+  };
+
+  const clearCart = () => {
+    setCart([]);
   };
 
   const googleProvider = new GoogleAuthProvider();
@@ -94,6 +102,7 @@ const AuthProvider = ({ children }) => {
     cart,
     addToCart,
     updateProfiles,
+    removeFromCart
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
